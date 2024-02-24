@@ -1,5 +1,5 @@
 // Open Weather API credentials
-const forecast_appid = '';
+const appid = 'fd2419db9b1ba37a5761e0dae704b031';
 
 
 // Helper get current time function for current weather
@@ -29,27 +29,26 @@ const find_noons = (lst) => {
         let date = lst[index].dt_txt;
         if (re.test(date)) {
             let forecast = {
-                date: format_date(date),
+                day: format_date(date),
                 temp: Math.round(lst[index].main.temp),
-                main: lst[index].weather.main,
-                icon: lst[index].weather.icon
+                main: lst[index].weather[0].main,
+                icon: lst[index].weather[0].icon
             }
             noons.push(forecast);
         }
     } return noons;
 }
 
-// Helper to format forecast date into [Day of week, Date of Month]
+// Helper to format forecast date into Day of week]
 const format_date = (date) => {
     let d = new Date(date);
     const weekday = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
     let day = weekday[d.getDay()];
-    let num = d.getDate();
-    return [day, num]
+    return day
 }
 
-
-const getWeather = async (query) => {
+// **********5 DAY FORECAST***************
+const getForecast = async (query) => {
     if (Number(query)) {
         q = `zip=${query}`
     } else {
@@ -58,13 +57,14 @@ const getWeather = async (query) => {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?${q},us&appid=${appid}&units=imperial`);
     const data = await response.json();
     const dict_list = data.list;
-    const noons = find_noons(dict_list);
-    return noons;
+    const forecast = find_noons(dict_list);
+    return forecast;
 };
 
-console.log(getWeather('46617'))
+console.log(getForecast('46617'))
 
-const getForecast = async (query) => {
+// ***********CURRENT WEATHER***************
+const getWeather = async (query) => {
     if (Number(query)) {
         q = `zip=${query}`
     } else {
@@ -88,6 +88,7 @@ const getForecast = async (query) => {
 
 const form = document.querySelector('form');
 const current_card = document.querySelector('.current_card');
+const forecast_card = document.querySelector('.forecast_card');
 
 form.addEventListener('submit', async(event) => {
     event.preventDefault();
@@ -100,7 +101,7 @@ form.addEventListener('submit', async(event) => {
                 <p class="current_temp">${weather_data.temp}&#176;</p>
                 <img class="weather-icon" src="https://openweathermap.org/img/w/${weather_data.icon}.png" alt="${weather_data.forecast}">
             </div>
-            <div class="forecast">
+            <div class="cc_right">
                 <p class="description">${weather_data.forecast}</p>
                 <p class="feelslike">Feels like: <br> <span>${weather_data.feels_like}&#176;</span></p>
             </div>
@@ -109,19 +110,20 @@ form.addEventListener('submit', async(event) => {
             <p>Humidity: ${weather_data.humidity}%</p>
             <p>Wind speed: ${weather_data.wind_speed}mph</p>
         </div>
-    `
+    `;
+
     const forecast_data = await getForecast(query);
-    for (day of forecast_data) {
-
-
-    }
-    forecast_card.innerHTML = `
-
-    
-    `
+    console.log(forecast_data)
+    forecast_card.innerHTML = ``;
+    for (i=0; i<5; i++) {
+        let day_card = document.createElement('div');
+        day_card.innerHTML = `
+            <p class="day">${forecast_data[i].day}</p>
+            <img class="weather-icon" src="https://openweathermap.org/img/w/${forecast_data[i].icon}.png" alt="${forecast_data[i].forecast}">
+            <p class="forecast_temp">${forecast_data[i].temp}&#176;</p>
+            <p class="forecast_desc">${forecast_data[i].main}</p>
+        `;
+        forecast_card.append(day_card);
+        day_card.className += ' day_card';
+    };
 });
-
-date: format_date(date),
-temp: Math.round(lst[index].main.temp),
-main: lst[index].weather.main,
-icon: lst[index].weather.icon
