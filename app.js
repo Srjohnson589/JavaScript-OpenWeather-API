@@ -1,5 +1,4 @@
 // Open Weather API credentials
-const appid = 'fd2419db9b1ba37a5761e0dae704b031';
 
 
 // Helper get current time function for current weather
