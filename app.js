@@ -1,6 +1,5 @@
 // Open Weather API credentials
 
-
 // Helper get current time function for current weather
 const get_time = () => {
     let dateObj = new Date();
@@ -89,6 +88,34 @@ const form = document.querySelector('form');
 const current_card = document.querySelector('.current_card');
 const forecast_card = document.querySelector('.forecast_card');
 
+const current_card_background = (iconid) => {
+    let clear = ['01d', '01n', '02d', '02n'];
+    let overcast = ['03d', '03n', '04d', '04n'];
+    let rain = ['09d', '09n', '10d', '10n', '11d', '11n', '50d', '50n'];
+    let snow = ['13d', '13n'];
+    for (item of clear) {
+        if (iconid === item){
+            return 'clear';
+        }
+    };
+    for (item of overcast) {
+        if (iconid === item){
+            return 'overcast';
+        }
+    };
+    for (item of rain) {
+        if (iconid === item){
+            return 'rain';
+        }
+    };
+    for (item of snow) {
+        if (iconid === item){
+            return 'snow'
+        }
+    };
+    return 'clear';
+    };
+
 form.addEventListener('submit', async(event) => {
     event.preventDefault();
     const query = form[0].value.toLowerCase();
@@ -110,9 +137,10 @@ form.addEventListener('submit', async(event) => {
             <p>Wind speed: ${weather_data.wind_speed}mph</p>
         </div>
     `;
+    let background = current_card_background(weather_data.icon);
+    current_card.className = `current_card ${background}`;
 
     const forecast_data = await getForecast(query);
-    console.log(forecast_data)
     forecast_card.innerHTML = ``;
     for (i=0; i<5; i++) {
         let day_card = document.createElement('div');

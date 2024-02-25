@@ -78,22 +78,24 @@ form button:hover {
     overflow: hidden;
     object-fit: cover;
     color: white;
-    background-image: url(https://media.istockphoto.com/id/532857182/photo/small-white-clouds-in-clear-blue-sky-background.jpg?s=612x612&w=0&k=20&c=yUIdya1xn25zSRwyn7A9JPOLPFUPisElvWJdD4elWSc=);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.sun {
-
+.clear {
+    background-image: url(https://media.istockphoto.com/id/532857182/photo/small-white-clouds-in-clear-blue-sky-background.jpg?s=612x612&w=0&k=20&c=yUIdya1xn25zSRwyn7A9JPOLPFUPisElvWJdD4elWSc=);
 }
 
 .rain {
-
+    background-image: url(https://static.vecteezy.com/system/resources/thumbnails/020/568/608/small/heavy-rain-drop-at-the-road-surface-bokeh-background-photo.jpg);
 }
 
 .overcast {
-
+    background-image: url(https://media.istockphoto.com/id/1193215395/photo/dark-stormy-clouds-for-background.jpg?s=612x612&w=0&k=20&c=tz57RqAg_0ovOo_OJQWAFwcUujHQ8kHKuZW9B9io01c=);
 }
 
+.snow {
+    background-image: url(https://t4.ftcdn.net/jpg/05/45/38/81/360_F_545388190_ET3Cyc17paqouXtNU4EgG2kxt9p209nw.jpg);
+}
 
 
 .city {
