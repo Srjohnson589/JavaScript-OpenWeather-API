@@ -1,4 +1,5 @@
 // Open Weather API credentials
+import appid from '.env';
 
 // Helper get current time function for current weather
 const get_time = () => {
